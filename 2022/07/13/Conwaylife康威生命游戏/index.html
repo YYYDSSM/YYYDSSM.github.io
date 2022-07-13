@@ -15,14 +15,14 @@
 <meta property="og:site_name" content="yshm&#39;blog">
 <meta property="og:description" content="题目描述  Conway’s Game of Life is a two-dimensional cellular automaton.The “game” is played on a two-dimensional grid of cells, where each cell is either 1 (alive) or 0 (dead). At each time step, each ce">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/photo/Conwaylife.png">
-<meta property="og:image" content="http://example.com/photo/Conwaylife2.png">
+<meta property="og:image" content="http://example.com/2022/07/13/Conwaylife%E5%BA%B7%E5%A8%81%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F/1.png">
+<meta property="og:image" content="http://example.com/2022/07/13/Conwaylife%E5%BA%B7%E5%A8%81%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F/2.png">
 <meta property="article:published_time" content="2022-07-13T08:00:06.000Z">
-<meta property="article:modified_time" content="2022-07-13T08:27:15.140Z">
+<meta property="article:modified_time" content="2022-07-13T08:47:50.506Z">
 <meta property="article:author" content="shaomingyang">
 <meta property="article:tag" content="HDLbits">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/photo/Conwaylife.png">
+<meta name="twitter:image" content="http://example.com/2022/07/13/Conwaylife%E5%BA%B7%E5%A8%81%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F/1.png">
   
     <link rel="alternative" href="/atom.xml" title="yshm&#39;blog" type="application/atom+xml">
   
@@ -206,7 +206,7 @@
     
     
       
-        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>  Conway’s Game of Life is a two-dimensional cellular automaton.The “game” is played on a two-dimensional grid of cells, where each cell is either 1 (alive) or 0 (dead). At each time step, each cell changes state depending on how many neighbours it has:The game is formulated for an infinite grid. In this circuit, we will use a 16x16 grid. To make things more interesting, we will use a 16x16 toroid, where the sides wrap around to the other side of the grid. For example, the corner cell (0,0) has 8 neighbours: (15,1), (15,0), (15,15), (0,1), (0,15), (1,1), (1,0), and (1,15). The 16x16 grid is represented by a length 256 vector, where each row of 16 cells is represented by a sub-vector: q[15:0] is row 0, q[31:16] is row 1, etc. (This tool accepts SystemVerilog, so you may use 2D vectors if you wish.)The game state should advance by one timestep every clock cycle.John Conway, mathematician and creator of the Game of Life cellular automaton, passed away from COVID-19 on April 11, 2020.</p>
+        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>  Conway’s Game of Life is a two-dimensional cellular automaton.The “game” is played on a two-dimensional grid of cells, where each cell is either 1 (alive) or 0 (dead). At each time step, each cell changes state depending on how many neighbours it has:The game is formulated for an infinite grid. In this circuit, we will use a 16x16 grid. To make things more interesting, we will use a 16x16 toroid, where the sides wrap around to the other side of the grid. For example, the corner cell (0,0) has 8 neighbours: (15,1), (15,0), (15,15), (0,1), (0,15), (1,1), (1,0), and (1,15). The 16x16 grid is represented by a length 256 vector, where each row of 16 cells is represented by a sub-vector: q[15:0] is row 0, q[31:16] is row 1, etc. (This tool accepts SystemVerilog, so you may use 2D vectors if you wish.)The game state should advance by one timestep every clock cycle.John Conway, mathematician and creator of the Game of Life cellular automaton, passed away from COVID-19 on April 11, 2020.<br>  <span id="more"></span></p>
 <ul>
 <li><p>0-1 neighbour: Cell becomes 0.</p>
 </li>
@@ -221,10 +221,14 @@
 <li><p>q: The 16x16 current state of the game, updated every clock cycle.</p>
 </li>
 </ul>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><p>  康威的生命游戏，需要我们用verilog来实现，这道题目有些难度，一开始我也没有理解题目意思，查询了一些资料后，才大概清楚是怎么操作的。我们有一个16x16的网格，并且将其变成了一个环状的图形，我们需要遍历每一个格子并且判断与当前格子相近的格子中细胞的个数，并且有1表示细胞存活，0表示细胞死亡如果只有0或1个那么当前格子中的细胞死亡，如果是有2个细胞，则维持当前的状态。如果是有3个细胞，则当前格子中细胞存活，当出现4个以上的细胞，则当前格子中的细胞死亡。上述就是这个游戏的规则，其中如何找出那些格子是相近的，我觉得是比较绕和难的。题目中也给出了例子，下面我用4x4的格子来说明一下</p>
-<p><img src="/photo/Conwaylife.png" alt="img"></p>
-<p>如图所示，每个格子对应一个坐标，由于是圆环状的将其平铺展开后，实际上是右边补全后的图形，这样一来各个点之间的相对位置也就清楚了。例如(0,0)处，与之相邻的就有8个点(3,3)、(3.0)、(3,1)、(0,3)、(0,1)、(1,3)、(1,0)、(1,1).搞清楚这个后，就是要解决如何判断细胞个数了，这个其实就比较容易了直接将对应点的内容进行相加再判断即可，由于每个点都有8个空与之相邻，假设其内的细胞都存活，总数的最大值也就是8，故我们可以定义一个3位宽的cnt变量，用来计算有多少细胞最后就是如何判断的问题了，这里其实可以划分成9块，分别是左上、右上、左下、右下、上边界、下边界、左边界、右边界和内部方块。（大致分三种情况，（1）中间部分 ，（2）四个角，（3）边缘行或列）另外我们还得知道另外因为我们是线性存储数据的，所以需要把坐标变成索引，如下图所示</p>
-<p><img src="/photo/Conwaylife2.png" alt="img"></p>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><p>  康威的生命游戏，需要我们用verilog来实现，这道题目有些难度，一开始我也没有理解题目意思，查询了一些资料后，才大概清楚是怎么操作的。我们有一个16x16的网格，并且将其变成了一个环状的图形，我们需要遍历每一个格子并且判断与当前格子相近的格子中细胞的个数，并且有1表示细胞存活，0表示细胞死亡如果只有0或1个那么当前格子中的细胞死亡，如果是有2个细胞，则维持当前的状态。如果是有3个细胞，则当前格子中细胞存活，当出现4个以上的细胞，则当前格子中的细胞死亡。上述就是这个游戏的规则，其中如何找出那些格子是相近的，我觉得是比较绕和难的。题目中也给出了例子。</p>
+<img src="/2022/07/13/Conwaylife%E5%BA%B7%E5%A8%81%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F/1.png" class title="This is an example image">
+
+
+<p>如图所示，每个格子对应一个坐标，由于是圆环状的将其平铺展开后，实际上是右边补全后的图形，这样一来各个点之间的相对位置也就清楚了。例如(0,0)处，与之相邻的就有8个点(3,3)、(3.0)、(3,1)、(0,3)、(0,1)、(1,3)、(1,0)、(1,1).搞清楚这个后，就是要解决如何判断细胞个数了，这个其实就比较容易了直接将对应点的内容进行相加再判断即可，由于每个点都有8个空与之相邻，假设其内的细胞都存活，总数的最大值也就是8，故我们可以定义一个3位宽的cnt变量，用来计算有多少细胞最后就是如何判断的问题了，这里其实可以划分成9块，分别是左上、右上、左下、右下、上边界、下边界、左边界、右边界和内部方块。（大致分三种情况，（1）中间部分 ，（2）四个角，（3）边缘行或列）另外我们还得知道另外因为我们是线性存储数据的，所以需要把坐标变成索引。</p>
+<img src="/2022/07/13/Conwaylife%E5%BA%B7%E5%A8%81%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F/2.png" class title="This is an example image">
+
+
 <p>弄清楚这些后，这道题目其实就已经解决了，具体的看下列代码</p>
 <ul>
 <li>a. 行与行之间的差值是16 (16x16的网格)</li>
