@@ -1,0 +1,80 @@
+# Hexo 站点配置
+# 文档：https://hexo.io/docs/configuration
+
+# 站点信息
+title: "yshm'blog"
+subtitle: '电子 · FPGA · 代码与相机'
+description: 'FPGA / 数字电路 / 嵌入式与相机玩法的一些笔记'
+keywords: 'FPGA, Verilog, 数字电路, ADC, 尼康, 嵌入式'
+author: shaomingyang
+language: zh-CN
+timezone: 'Asia/Shanghai'
+
+# 网址
+url: https://yyydssm.github.io
+root: /
+# 与旧站保持一致，保证老链接不失效
+permalink: :year/:month/:day/:title/
+permalink_defaults:
+pretty_urls:
+  trailing_index: true
+  trailing_html: false
+
+# 目录
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+
+# 写作
+new_post_name: :title.md
+default_layout: post
+titlecase: false
+external_link:
+  enable: true
+  field: site
+  exclude:
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+highlight:
+  enable: true
+  line_number: true
+  auto_detect: false
+  tab_replace: ''
+  wrap: true
+  hljs: false
+prismjs:
+  enable: false
+  preprocess: true
+  line_number: true
+  tab_replace: ''
+
+# 首页与分页
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+default_category: 未分类
+category_map:
+tag_map:
+date_format: YYYY-MM-DD
+time_format: HH:mm
+per_page: 10
+pagination_dir: page
+
+# 主题
+theme: fluid
+
+# 部署：生成后推送到 GitHub Pages 的 master 分支
+deploy:
+  type: git
+  repo: https://github.com/YYYDSSM/YYYDSSM.github.io.git
+  branch: master
+  message: "site: deploy %Y-%m-%d %H:%M:%S"

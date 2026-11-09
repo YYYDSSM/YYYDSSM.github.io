@@ -1,0 +1,10 @@
+# 忽略依赖与构建产物
+node_modules/
+public/
+.deploy_git/
+db.json
+*.log
+
+# 本地抓取/截图/转换的中间文件
+_raw/
+_shots/
