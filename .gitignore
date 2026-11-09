@@ -4,6 +4,7 @@ public/
 .deploy_git/
 db.json
 *.log
+tools/node/
 
 # 本地抓取/截图/转换的中间文件
 _raw/

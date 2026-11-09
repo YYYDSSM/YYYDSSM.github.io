@@ -12,9 +12,12 @@ $repo  = "https://github.com/YYYDSSM/YYYDSSM.github.io.git"
 
 Set-Location -LiteralPath $root
 
+$node = Join-Path $root "tools\node\node.exe"
+if (-not (Test-Path -LiteralPath $node)) { $node = "node" }
+
 Write-Host "[1/4] 清理并生成静态文件"
-& node "node_modules\hexo\bin\hexo" clean
-& node "node_modules\hexo\bin\hexo" generate
+& $node "node_modules\hexo\bin\hexo" clean
+& $node "node_modules\hexo\bin\hexo" generate
 if ($LASTEXITCODE -ne 0) { throw "hexo generate 失败" }
 
 Write-Host "[2/4] 组装部署目录"
