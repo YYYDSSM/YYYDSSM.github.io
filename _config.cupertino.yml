@@ -1,0 +1,96 @@
+# ===== Theme Cupertino 站点配置（覆盖主题默认值，见 node_modules/hexo-theme-cupertino/_config.yml）=====
+
+# 站点图标与 PWA manifest
+favicon: /favicon.png
+manifest: /manifest.json
+
+# 首页标题区（Apple Newsroom 式）
+hero:
+  title: yshm'blog
+  description: FPGA / 数字电路的技术笔记，偶尔聊相机。
+
+# 顶部导航（is_icon: true 的条目只显示图标）
+nav:
+  title: yshm'blog
+  items:
+    - name: 归档
+      url: /archives/
+    - name: 标签
+      url: /tags/
+    - name: 分类
+      url: /categories/
+    - name: 关于
+      url: /about/
+    - name: <i class="bi bi-github"></i>
+      is_icon: true
+      url: https://github.com/YYYDSSM
+    - name: <i class="bi bi-envelope"></i>
+      is_icon: true
+      url: mailto:1306704057@qq.com
+
+# 列表里显示摘要
+show_excerpt: true
+
+# 配色：auto 跟随系统，页脚可手动切换
+color_scheme: auto
+show_color_scheme_toggle: true
+
+# 文章页目录
+toc: true
+toc_max_depth: 3
+
+# 分类 / 标签展示
+uppercase_categories: false
+categories_post_count: true
+capitalize_tags: false
+hashtag_prefix_before_tags: true
+tags_post_count: true
+
+# 日期格式（moment.js；中文 locale 下生效）
+date_display_format: YYYY年M月D日
+
+# 页脚分组
+footer:
+  - group_name: 本站
+    items:
+      - name: 首页
+        url: /
+      - name: 归档
+        url: /archives/
+      - name: 标签
+        url: /tags/
+      - name: 分类
+        url: /categories/
+      - name: 关于
+        url: /about/
+      - name: RSS
+        url: /atom.xml
+  - group_name: 找到我
+    items:
+      - name: GitHub
+        url: https://github.com/YYYDSSM
+      - name: 邮箱
+        url: mailto:1306704057@qq.com
+  - group_name: 本站构建于
+    items:
+      - name: Hexo
+        url: https://hexo.io/
+      - name: Theme Cupertino
+        url: https://github.com/MrWillCom/hexo-theme-cupertino
+
+footer_extra_description: 电子 · FPGA · 代码与相机
+
+# 文章页底部版权说明
+license: CC BY-NC-SA 4.0
+license_link: https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans
+
+# 搜索基于 Pagefind，需要生成后再跑一次索引，文章少时先关闭
+search: false
+
+# 动效
+scroll_reveal: true
+view_transition: true
+smooth_scroll: false
+hero_exit_while_scrolling:
+  enabled: true
+  blur_filter: false

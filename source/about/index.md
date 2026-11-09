@@ -1,7 +1,12 @@
+---
 title: 关于
 date: 2026-11-09 20:40:00
-layout: about
+layout: post
+no_date: true
+no_about: true
 ---
+
+<div style="width:112px;margin:0 0 1.5rem 0"><img src="/img/avatar.png" alt="shaomingyang" style="border-radius:50%;"></div>
 
 这里是我个人的技术笔记站，主要记 FPGA / 数字电路 / 嵌入式方向的东西，偶尔聊相机。
 
